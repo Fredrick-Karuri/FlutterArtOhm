@@ -94,6 +94,14 @@ class ProductTile extends StatelessWidget {
                 onPressed: () {
                   cart.addItem(productModel.id, productModel.priceInShillings,
                       productModel.productName);
+                  Scaffold.of(context).hideCurrentSnackBar();
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Successfully added to cart',
+                          textAlign: TextAlign.center),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
                 },
                 color: Theme.of(context).accentColor,
               )

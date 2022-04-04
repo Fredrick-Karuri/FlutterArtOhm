@@ -1,7 +1,9 @@
 // ignore_for_file: deprecated_member_use, camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:artohm/Models/cartmodel.dart' show Cart;
+import 'package:artohm/Models/orders.dart';
 import 'package:artohm/mywidgets.dart';
+import 'package:artohm/pages/orders.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:artohm/pages/home.dart';
@@ -22,15 +24,16 @@ class cart extends StatelessWidget {
         elevation: 0,
         brightness: Brightness.light,
         // backgroundColor: Colors.white,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_back_ios,
-              size: 20,
-              color: Colors.black,
-            )),
+        // leading: IconButton(
+        //     onPressed: () {
+        //       Navigator.pop(context);
+        //     },
+        //     icon: Icon(
+        //       Icons.arrow_back_ios,
+        //       size: 20,
+        //       color: Colors.black,
+        //     )
+        //     ),
       ),
       body: Column(
         children: <Widget>[
@@ -53,8 +56,19 @@ class cart extends StatelessWidget {
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
                   FlatButton(
-                    onPressed: () {},
-                    child: Text("BUY"),
+                    onPressed: () {
+                      Provider.of<Orders>(context, listen: false).addOrder(
+                        cart.items.values.toList(),
+                        cart.totalAmount,
+                      );
+                      Navigator.of(context).pushNamed(
+                        OrdersPage.routeName,
+                      
+                      
+                      );
+                      cart.clearCart();
+                    },
+                    child: Text("CREATE ORDER"),
                     textColor: Theme.of(context).primaryColor,
                   )
                 ],
@@ -77,6 +91,8 @@ class cart extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: BottomNavigation(),
+      drawer: Sandwich(),
+
     );
   }
 }

@@ -1,11 +1,14 @@
-// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, use_key_in_widget_constructors, unnecessary_string_escapes, prefer_const_constructors_in_immutables
 import 'package:artohm/pages/cart.dart';
+import 'package:artohm/pages/orders.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:artohm/producttiles.dart';
 import 'package:flutter/material.dart';
 import 'package:artohm/pages/home.dart';
 import 'Models/products.dart';
 import './Models/cartmodel.dart';
+import 'Models/orders.dart' as ord;
 
 Widget myLabel(String label, MaterialAccentColor blueAccent,
     {Color textColor = Colors.amber, double size = 23}) {
@@ -208,7 +211,6 @@ class BottomNavigation extends StatelessWidget {
 
       decoration: BoxDecoration(
         color: Color.fromARGB(77, 192, 167, 167),
-        
         border: Border(
             top: BorderSide(color: Colors.black26, width: 3.0),
             bottom: BorderSide(color: Colors.black26, width: 2.0)),
@@ -229,16 +231,12 @@ class BottomNavigation extends StatelessWidget {
               icon: const Icon(
                 Icons.home_outlined,
                 color: Color.fromARGB(255, 8, 0, 0),
-                    
-
                 size: 30,
               ),
             ),
 
-            
             Consumer<Cart>(
-              builder: (_, cartData, ch) =>
-               Badge(
+              builder: (_, cartData, ch) => Badge(
                 color: Colors.accents.last,
                 child: IconButton(
                   enableFeedback: false,
@@ -255,19 +253,22 @@ class BottomNavigation extends StatelessWidget {
                   ),
                 ),
                 value: cartData.itemCount.toString(),
+              ),
+            ),
 
-              ),
-              
-            ),
-            IconButton(
-              enableFeedback: false,
-              onPressed: () {},
-              icon: const Icon(
-                Icons.person,
-                color: Color.fromARGB(255, 8, 0, 0),
-                size: 30,
-              ),
-            ),
+            // Sandwich(),
+
+
+
+            // IconButton(
+            //   enableFeedback: false,
+            //   onPressed: () {},
+            //   icon: const Icon(
+            //     Icons.person,
+            //     color: Color.fromARGB(255, 8, 0, 0),
+            //     size: 30,
+            //   ),
+            // ),
             // IconButton(
             //   enableFeedback: false,
             //   onPressed: () {},
@@ -275,15 +276,12 @@ class BottomNavigation extends StatelessWidget {
             //     Icons.chat_bubble_outline_rounded,
             //     color: Color.fromARGB(255, 8, 0, 0),
             //     size: 30,
-            //   ), 
+            //   ),
             // ),
             PopupMenuButton(
                 onSelected: (FavoriteCategories chosenValue) {
-                  if (chosenValue==FavoriteCategories.Favorites){
-
-                  }else{
-
-                  }
+                  if (chosenValue == FavoriteCategories.Favorites) {
+                  } else {}
                 },
                 icon: Icon(
                   Icons.more_vert,
@@ -305,5 +303,62 @@ class BottomNavigation extends StatelessWidget {
   }
 }
 
+class OrderItem extends StatelessWidget {
+  // const MyOrderItem({ Key? key }) : super(key: key);
+  final ord.OrderItem order;
+  OrderItem(this.order);
 
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.all(10),
+      child: Column(
+        children: [
+          ListTile(
+            title: Text('\Ksh ${order.amount}'),
+            subtitle: Text(
+              DateFormat('dd MM yyyy hh:mm').format(order.dateTime),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
 
+//todo implement hello {name }
+class Sandwich extends StatelessWidget {
+  // const Sandwich({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Column(
+        children: [
+          AppBar(
+            title: Text("Hello You!"),
+            automaticallyImplyLeading: false,
+          ),
+          Divider(),  
+          ListTile(
+            leading: Icon(Icons.shop),
+            title: Text('Home'),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed('/');
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.payment),
+            title: Text('Orders'),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(
+                OrdersPage.routeName,
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}

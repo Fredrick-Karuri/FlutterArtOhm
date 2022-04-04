@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   bool isRememberMe=false;
   final Prefs _prefs=Prefs();
 
-  void validateUser(String email, String password) async {
+  void validateUser(String email,password) async {
     DialogBuilder(context).showLoadingIndicator(
         "Please wait as we authenticate you", "Authentication");
     Map data = {'email': email, 'password': password};

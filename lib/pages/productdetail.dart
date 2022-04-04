@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:artohm/Models/products.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

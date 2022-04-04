@@ -1,14 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:artohm/main.dart';
-import 'package:artohm/pages/cart.dart';
-import 'package:artohm/Models/products.dart';
-import 'package:artohm/Models/categoriesmodel.dart';
-import 'package:artohm/Models/productsmodel.dart';
-import 'package:artohm/Models/stickersmodel.dart';
-import 'package:artohm/shared_preferences.dart';
-import '../mywidgets.dart';
+import 'package:artohm/mywidgets.dart';
 
 class Home extends StatefulWidget {
   @override

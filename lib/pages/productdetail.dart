@@ -20,6 +20,43 @@ class ProductDetail extends StatelessWidget {
       appBar: AppBar(
         title: Text(displayProduct.productName),
       ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+                height: 300,
+                width: double.infinity,
+                child: Image.network(
+                  displayProduct.imgUrl,
+                  fit: BoxFit.cover,
+                )),
+            // ignore: prefer_const_constructors
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text("\Ksh ${displayProduct.priceInShillings}",
+                    // ignore: prefer_const_constructors
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 20,
+                    )),
+              ),
+            ),
+            // ignore: prefer_const_constructors
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              displayProduct.description,
+              textAlign: TextAlign.center,
+              softWrap: true,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

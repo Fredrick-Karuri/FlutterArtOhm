@@ -6,11 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:artohm/Models/products.dart';
 import 'package:artohm/pages/productdetail.dart';
-
 void main() {
   runApp(const ArtOhm());
 }
-
 class ArtOhm extends StatefulWidget {
   const ArtOhm({Key? key}) : super(key: key);
 

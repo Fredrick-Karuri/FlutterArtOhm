@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, deprecated_member_use, prefer_if_null_operators, unnecessary_null_comparison
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, deprecated_member_use, prefer_if_null_operators, unnecessary_null_comparison, unnecessary_string_escapes, unnecessary_brace_in_string_interps, use_key_in_widget_constructors
 
 import 'package:artohm/Models/cartmodel.dart';
 import 'package:artohm/Models/productsmodel.dart';
@@ -28,7 +28,7 @@ class ProductTile extends StatelessWidget {
     final productModel = Provider.of<ProductModel>(
       context,
     );
-    final cart=Provider.of<Cart>(context, listen: false);
+    final cart = Provider.of<Cart>(context, listen: false);
     return Container(
       // width: 200,
       margin: EdgeInsets.only(right: 16),
@@ -92,7 +92,8 @@ class ProductTile extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.shopping_cart),
                 onPressed: () {
-                  cart.addItem(productModel.id, productModel.priceInShillings, productModel.productName);
+                  cart.addItem(productModel.id, productModel.priceInShillings,
+                      productModel.productName);
                 },
                 color: Theme.of(context).accentColor,
               )
@@ -206,11 +207,10 @@ class CategoryTile extends StatelessWidget {
   }
 }
 
-
-
+//badge to show number of items in cart
 class Badge extends StatelessWidget {
   const Badge({
-     Key? key,
+    Key? key,
     required this.child,
     required this.value,
     required this.color,
@@ -250,6 +250,61 @@ class Badge extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+//card to be in cart
+class CartItem extends StatelessWidget {
+  // const CartItem({Key? key}) : super(key: key);
+  final String id;
+  final double priceInShillings;
+  final int quantity;
+  final String title;
+  final String productId;
+
+  CartItem(
+    this.id,
+    this.productId,
+    this.priceInShillings,
+    this.quantity,
+    this.title,
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Dismissible(
+      key: ValueKey(id),
+      background: Container(
+        color: Theme.of(context).errorColor,
+        child: Icon(
+          Icons.delete,
+          color: Colors.white,
+          size: 40,
+        ),
+        alignment: Alignment.centerRight,
+        padding: EdgeInsets.only(right: 20),
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+      ),
+      direction: DismissDirection.endToStart,
+      onDismissed: (direction) {
+        Provider.of<Cart>(context, listen: false).deleteItem(productId);
+      },
+      child: Card(
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: ListTile(
+              leading: CircleAvatar(
+                  child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: FittedBox(child: Text("\Ksh $priceInShillings")),
+              )),
+              title: Text(title),
+              subtitle: Text('Total:\Ksh ${(priceInShillings * quantity)}'),
+              trailing: Text('\Ksh $quantity x')),
+        ),
+      ),
     );
   }
 }
